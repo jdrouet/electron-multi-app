@@ -1,0 +1,45 @@
+{
+  "name": "@multi-app/root",
+  "version": "1.0.0",
+  "main": "common/index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "common",
+    "about",
+    "settings"
+  ],
+  "devDependencies": {
+    "asar": "^0.14.6",
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.4",
+    "electron-packager": "^13.0.1"
+  },
+  "build": {
+    "productName": "MultiApp",
+    "forceCodeSigning": "false",
+    "mac": {
+      "target": [
+        {
+          "target": "dir"
+        }
+      ],
+      "minimumSystemVersion": "10.11.0",
+      "electronLanguages": [
+        "en-us"
+      ]
+    },
+    "files": [
+      "common",
+      "common/node_modules"
+    ]
+  },
+  "scripts": {
+    "postinstall": "yarn workspaces run install",
+    "package:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder"
+  },
+  "dependencies": {
+    "electron-debug": "^2.0.0",
+    "minimist": "^1.2.0"
+  }
+}
