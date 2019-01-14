@@ -2,8 +2,8 @@ RESOURCES_DIR = dist/mac/MultiApp.app/Contents/Resources
 
 clean:
 	rm -rf dist
-	rm -rf about/build
-	rm -rf settings/build
+	rm -rf about/build about/web
+	rm -rf settings/build settings/web
 	rm -rf common/static
 
 depends:
@@ -11,9 +11,20 @@ depends:
 
 build:
 	yarn workspace @multi-app/about run build
+	mv about/build about/web
 	yarn workspace @multi-app/settings run build
+	mv settings/build settings/web
+
+package-common:
+	yarn run package:mac
+
+package-about:
+	yarn run asar pack about dist/mac/MultiApp.app/Contents/Resources/about.asar
+
+package-settings:
+	yarn run asar pack settings dist/mac/MultiApp.app/Contents/Resources/settings.asar
 
 package: clean depends build
-	yarn run package:mac
-	yarn run asar pack about/build $(RESOURCES_DIR)/about.asar
-	yarn run asar pack settings/build $(RESOURCES_DIR)/settings.asar
+	make package-common
+	make package-about
+	make package-settings

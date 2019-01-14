@@ -4,13 +4,14 @@
   "main": "common/index.js",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "common",
-    "about",
-    "settings"
-  ],
+  "workspaces": {
+    "packages": [
+      "common",
+      "about",
+      "settings"
+    ]
+  },
   "devDependencies": {
-    "asar": "^0.14.6",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.4",
     "electron-packager": "^13.0.1"
@@ -39,6 +40,7 @@
     "package:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder"
   },
   "dependencies": {
+    "asar": "^0.14.6",
     "electron-debug": "^2.0.0",
     "minimist": "^1.2.0"
   }
